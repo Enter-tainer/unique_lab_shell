@@ -4,6 +4,7 @@
 #include <optional>
 
 #include "readline.h"
+#include "string_opt.h"
 
 std::optional<std::string> mgt::readline(const std::string &prompt) {
   char *tmp = ::readline(prompt.c_str());
@@ -11,7 +12,7 @@ std::optional<std::string> mgt::readline(const std::string &prompt) {
     return {};
   std::string res(tmp);
   std::free(tmp);
-  return res;
+  return mgt::str::trim(res);
 }
 
 void mgt::add_history(const std::string &cmd) {

@@ -11,6 +11,8 @@
 #include<readline/readline.h>
 #include<readline/history.h>
 
+#include "string_opt.h"
+
 namespace mgt {
 std::optional<std::string> readline(const std::string &prompt);
 

@@ -6,7 +6,7 @@
 #define UNIQUE_LAB_SHELL_STRING_OPT_H
 #include <string>
 namespace mgt::str {
-std::string trim_init(const std::string &str, char ch) {
+inline std::string trim_init(const std::string &str, char ch) {
   std::string res;
   res.reserve(str.length());
   bool first = true;
@@ -21,11 +21,11 @@ std::string trim_init(const std::string &str, char ch) {
   return res;
 }
 
-std::string trim_init(const std::string &str) {
+inline std::string trim_init(const std::string &str) {
   return trim_init(str, ' ');
 }
 
-std::string trim_last(const std::string &str, char ch) {
+inline std::string trim_last(const std::string &str, char ch) {
   std::string res = str;
   for (int i = static_cast<int>(res.size()) - 1; i >= 0; --i) {
     if (res[i] == ch) {
@@ -37,17 +37,23 @@ std::string trim_last(const std::string &str, char ch) {
   return res;
 }
 
-std::string trim_last(const std::string &str) {
+inline std::string trim_last(const std::string &str) {
   return trim_last(str, ' ');
 }
 
-std::string trim(const std::string &str, char ch) {
+inline std::string trim(const std::string &str, char ch) {
   return trim_init(trim_last(str, ch), ch);
 }
 
-std::string trim(const std::string &str) {
+inline std::string trim(const std::string &str) {
   return trim(str, ' ');
 }
 
+inline std::string split_and_return_last(const std::string& str, char ch) {
+  return trim(str.substr(str.find(ch)));
+}
+inline std::string split_and_return_last(const std::string& str) {
+  return split_and_return_last(str, ' ');
+}
 }
 #endif //UNIQUE_LAB_SHELL_STRING_OPT_H

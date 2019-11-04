@@ -9,8 +9,10 @@
 #include <string>
 #include <cstdio>
 #include <iostream>
+#include <vector>
 
 #include "readline.h"
+#include "commands/echo.h"
 
 
 namespace mgt {
