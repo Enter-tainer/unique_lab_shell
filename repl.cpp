@@ -4,6 +4,7 @@
 
 #include "repl.h"
 
+namespace mgt {
 void repl() {
   std::string line_input;
   while (true) {
@@ -19,4 +20,5 @@ void repl() {
 
 void process_input(const std::string &input) {
   std::cout << input << std::endl;
+}
 }

@@ -20,8 +20,7 @@ void sig_handle(int sig) {
 int main() {
   std::string prompt = "user>>= ";
   std::string line_input;
-  int i = 0;
   mgt::sys_wrapped::signal(SIGINT, sig_handle);
-  repl();
+  mgt::repl();
   return 0;
 }
