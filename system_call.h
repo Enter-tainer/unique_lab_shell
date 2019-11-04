@@ -54,6 +54,11 @@ inline int sigaction(int dig, const struct sigaction *__restrict act,
                      struct sigaction *__restrict old_act) {
   return ::sigaction(dig, act, old_act);
 }
+
+inline int chdir(const char *path) {
+  return ::chdir(path);
+}
+
 } // namespace sys
 
 namespace sys_wrapped {
@@ -125,6 +130,15 @@ inline sighandler_t signal(int signum, sighandler_t handler) {
     unix_error("Signal error");
   return old_action.sa_handler;
 }
+
+inline int chdir(const char *path) {
+  int res;
+  if ((res = sys::chdir(path)) < 0) {
+    std::cout << strerror(errno) << std::endl;
+  }
+  return res;
+}
+
 } // namespace sys_wrapped
 } // namespace mgt
 #endif //UNIQUE_LAB_SHELL_SYSTEM_CALL_H

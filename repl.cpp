@@ -42,12 +42,15 @@ void process_input(const std::string &input) {
           break;
         }
         case kExit: {
+          mgt::cmd::exit();
           break;
         }
         case kCd: {
+          mgt::cmd::cd(mgt::str::split_and_return_last(input));
           break;
         }
         case kPwd: {
+          mgt::cmd::pwd();
           break;
         }
         case kKill: {

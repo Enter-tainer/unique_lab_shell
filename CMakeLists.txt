@@ -7,7 +7,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(unique_lab_shell main.cpp system_call.h
         readline.h readline.cpp repl.cpp repl.h commands/echo.cpp
-        commands/echo.h string_opt.h)
+        commands/echo.h string_opt.h commands/exit.cpp commands/exit.h
+        commands/pwd.cpp commands/pwd.h commands/cd.cpp commands/cd.h)
 
 
 target_link_libraries(unique_lab_shell readline)

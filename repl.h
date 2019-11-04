@@ -13,7 +13,9 @@
 
 #include "readline.h"
 #include "commands/echo.h"
-
+#include "commands/exit.h"
+#include "commands/pwd.h"
+#include "commands/cd.h"
 
 namespace mgt {
 
