@@ -50,7 +50,11 @@ inline std::string trim(const std::string &str) {
 }
 
 inline std::string split_and_return_last(const std::string& str, char ch) {
-  return trim(str.substr(str.find(ch)));
+  size_t res = str.find(ch);
+  if (res == std::string::npos)
+    return "";
+  else
+    return trim(str.substr(res));
 }
 inline std::string split_and_return_last(const std::string& str) {
   return split_and_return_last(str, ' ');
