@@ -6,12 +6,13 @@
 #define UNIQUE_LAB_SHELL_READLINE_H
 
 #include <string>
+#include <optional>
 
 #include<readline/readline.h>
 #include<readline/history.h>
 
 namespace mgt {
-std::string readline(const std::string &prompt);
+std::optional<std::string> readline(const std::string &prompt);
 
 void add_history(const std::string &cmd);
 }

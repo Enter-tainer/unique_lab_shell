@@ -3,7 +3,7 @@ project(unique_lab_shell)
 
 find_package(Catch2 REQUIRED)
 find_library(readline REQUIRED)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 add_executable(unique_lab_shell main.cpp system_call.h readline.h readline.cpp)
 

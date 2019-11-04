@@ -1,14 +1,14 @@
 //
 // Created by mgt on 11/4/19.
 //
-#include <stdexcept>
+#include <optional>
 
 #include "readline.h"
 
-std::string mgt::readline(const std::string &prompt) {
+std::optional<std::string> mgt::readline(const std::string &prompt) {
   char *tmp = ::readline(prompt.c_str());
   if (tmp == nullptr)
-    throw std::logic_error("EOF");
+    return {};
   std::string res(tmp);
   std::free(tmp);
   return res;

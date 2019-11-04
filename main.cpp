@@ -22,11 +22,11 @@ int main() {
   int i = 0;
   mgt::sys_wrapped::signal(SIGINT, sig_handle);
   while (true) {
-    try {
-      line_input = mgt::readline(prompt);
-    } catch (std::logic_error) {
+    std::optional<std::string> res = mgt::readline(prompt);
+    if (res.has_value())
+      line_input = res.value();
+    else
       break;
-    }
     mgt::add_history(line_input);
     printf("[%i] %s\n", i, line_input.c_str());
     i++;
