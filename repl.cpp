@@ -54,6 +54,7 @@ void process_input(const std::string &input) {
           break;
         }
         case kKill: {
+          mgt::cmd::kill(mgt::str::split_and_return_last(input));
           break;
         }
       }

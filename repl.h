@@ -16,6 +16,7 @@
 #include "commands/exit.h"
 #include "commands/pwd.h"
 #include "commands/cd.h"
+#include "commands/kill.h"
 
 namespace mgt {
 
