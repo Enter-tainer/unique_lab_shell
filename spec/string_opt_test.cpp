@@ -38,3 +38,8 @@ TEST_CASE("trim") {
   REQUIRE(std::string("") == mgt::str::trim("  "));
   REQUIRE(std::string("221") == mgt::str::trim("  221 "));
 }
+
+TEST_CASE("split") {
+  REQUIRE(std::string("qwq qwq") == mgt::str::split_and_return_last("echo qwq qwq "));
+  REQUIRE(std::string("") == mgt::str::split_and_return_last("cd"));
+}
