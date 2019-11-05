@@ -10,7 +10,7 @@
 #include <string>
 #include <iostream>
 namespace mgt::cmd {
-static std::string get_cwd();
+std::string get_cwd();
 void pwd();
 }
 #endif //UNIQUE_LAB_SHELL_PWD_H

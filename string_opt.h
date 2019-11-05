@@ -4,7 +4,10 @@
 
 #ifndef UNIQUE_LAB_SHELL_STRING_OPT_H
 #define UNIQUE_LAB_SHELL_STRING_OPT_H
+
 #include <string>
+#include <vector>
+
 namespace mgt::str {
 inline std::string trim_init(const std::string &str, char ch) {
   std::string res;
@@ -49,15 +52,34 @@ inline std::string trim(const std::string &str) {
   return trim(str, ' ');
 }
 
-inline std::string split_and_return_last(const std::string& str, char ch) {
+inline std::string split_and_return_last(const std::string &str, char ch) {
   size_t res = str.find(ch);
   if (res == std::string::npos)
     return "";
   else
     return trim(str.substr(res));
 }
-inline std::string split_and_return_last(const std::string& str) {
+
+inline std::string split_and_return_last(const std::string &str) {
   return split_and_return_last(str, ' ');
 }
+
+inline std::vector<std::string> split(const std::string &str, char ch) {
+  std::vector<std::string> res;
+  size_t prev = 0, pos = 0;
+  do {
+    pos = str.find(ch, prev);
+    if (pos == std::string::npos) pos = str.length();
+    std::string token = str.substr(prev, pos - prev);
+    res.push_back(token);
+    prev = pos + 1;
+  } while (pos < str.length() && prev < str.length());
+  return res;
+}
+
+inline std::vector<std::string> split(const std::string &str) {
+  return split(str, ' ');
+}
+
 }
 #endif //UNIQUE_LAB_SHELL_STRING_OPT_H

@@ -18,3 +18,10 @@ std::optional<std::string> mgt::readline(const std::string &prompt) {
 void mgt::add_history(const std::string &cmd) {
   ::add_history(cmd.c_str());
 }
+
+void mgt::refresh_prompt() {
+  putchar('\n');
+  rl_on_new_line(); // Regenerate the prompt on a newline
+  rl_replace_line("", 0); // Clear the previous text
+  rl_redisplay();
+}

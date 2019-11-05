@@ -10,17 +10,14 @@
 
 void sig_handle(int sig) {
   if (sig == SIGINT) {
-    putchar('\n');
-    rl_on_new_line(); // Regenerate the prompt on a newline
-    rl_replace_line("", 0); // Clear the previous text
-    rl_redisplay();
+    mgt::refresh_prompt();
   }
 }
 
 int main() {
-  std::string prompt = "user>>= ";
   std::string line_input;
   mgt::sys_wrapped::signal(SIGINT, sig_handle);
+  mgt::sys_wrapped::dup2(1, 2);
   mgt::repl();
   return 0;
 }

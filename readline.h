@@ -17,5 +17,7 @@ namespace mgt {
 std::optional<std::string> readline(const std::string &prompt);
 
 void add_history(const std::string &cmd);
+
+void refresh_prompt();
 }
 #endif //UNIQUE_LAB_SHELL_READLINE_H

@@ -22,6 +22,7 @@ namespace sys {
 inline pid_t fork() {
   return ::fork();
 }
+
 inline pid_t waitpid(pid_t pid, int *status, int options) {
   return ::waitpid(pid, status, options);
 }
@@ -29,15 +30,27 @@ inline pid_t waitpid(pid_t pid, int *status, int options) {
 inline pid_t wait(int *status) {
   return ::wait(status);
 }
+
 inline unsigned int sleep(unsigned int sec) {
   return ::sleep(sec);
 }
+
 inline int pause() {
   return ::pause();
 }
+
 inline int execve(const char *filename, char *const argv[], char *const envp[]) {
   return ::execve(filename, argv, envp);
 }
+
+inline int execvp(const char *file, char *const argv[]) {
+  return ::execvp(file, argv);
+}
+
+inline int execvpe(const char *file, char *const argv[], char *const envp[]) {
+  return ::execvpe(file, argv, envp);
+}
+
 inline int kill(pid_t pid, int sig) {
   return ::kill(pid, sig);
 }
@@ -57,6 +70,10 @@ inline int sigaction(int dig, const struct sigaction *__restrict act,
 
 inline int chdir(const char *path) {
   return ::chdir(path);
+}
+
+inline int dup2(int old_fd, int new_fd) {
+  return ::dup2(old_fd, new_fd);
 }
 
 } // namespace sys
@@ -108,6 +125,22 @@ inline int execve(const char *filename, char *const argv[], char *const envp[]) 
   return res;
 }
 
+inline int execvp(const char *file, char *const argv[]) {
+  int res;
+  if ((res = sys::execvp(file, argv) < 0)) {
+    unix_error("execvp failed");
+  }
+  return res;
+}
+
+inline int execvpe(const char *file, char *const argv[], char *const envp[]) {
+  int res;
+  if ((res = sys::execvpe(file, argv, envp) < 0)) {
+    unix_error("execvpe failed");
+  }
+  return res;
+}
+
 inline int kill(pid_t pid, int sig) {
   int res;
   if ((res = sys::kill(pid, sig)) < 0)
@@ -139,6 +172,12 @@ inline int chdir(const char *path) {
   return res;
 }
 
+inline int dup2(int old_fd, int new_fd) {
+  int res;
+  if ((res = sys::dup2(old_fd, new_fd)) < 0)
+    unix_error("dup2 failed");
+  return res;
+}
 } // namespace sys_wrapped
 } // namespace mgt
 #endif //UNIQUE_LAB_SHELL_SYSTEM_CALL_H

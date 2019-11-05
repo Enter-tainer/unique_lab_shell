@@ -12,15 +12,16 @@
 #include <vector>
 
 #include "readline.h"
-#include "commands/echo.h"
-#include "commands/exit.h"
-#include "commands/pwd.h"
-#include "commands/cd.h"
-#include "commands/kill.h"
+#include "shell/echo.h"
+#include "shell/exit.h"
+#include "shell/pwd.h"
+#include "shell/cd.h"
+#include "shell/kill.h"
+#include "shell/fork_and_exec.h"
 
 namespace mgt {
 
-static const std::string prompt{">>="}; // NOLINT(cert-err58-cpp)
+static const std::string prompt{">>= "}; // NOLINT(cert-err58-cpp)
 
 void process_input(const std::string &input);
 
