@@ -68,7 +68,7 @@ void process_input(const std::string &input) {
   if (!matched && !input.empty()) {
     // run external command
     std::vector<std::string> argv = mgt::str::split(input);
-    mgt::cmd::run(input, argv);
+    mgt::cmd::run(argv[0], argv);
   }
 }
 }
