@@ -20,3 +20,14 @@ void mgt::cmd::run(const std::string &file_name, const std::vector<std::string> 
     mgt::sys_wrapped::waitpid(pid, &status, 0);
   }
 }
+
+void mgt::cmd::run(const std::string &file_name, char *const *argv) {
+  pid_t pid = mgt::sys_wrapped::fork();
+  if (pid == 0) {
+    mgt::sys_wrapped::execvp(file_name.c_str(), argv);
+    ::exit(0);
+  } else {
+    int status;
+    mgt::sys_wrapped::waitpid(pid, &status, 0);
+  }
+}

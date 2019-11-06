@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include <sstream>
 
 namespace mgt::str {
 inline std::string trim_init(const std::string &str, char ch) {

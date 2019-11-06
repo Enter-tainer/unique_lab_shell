@@ -12,5 +12,7 @@
 
 namespace mgt::cmd {
 void run(const std::string &file_name, const std::vector<std::string> &argv);
+
+void run(const std::string &file_name, char *const *argv);
 }
 #endif //UNIQUE_LAB_SHELL_FORK_AND_EXEC_H
