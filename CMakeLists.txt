@@ -10,6 +10,7 @@ add_executable(unique_lab_shell main.cpp system_call.h
         readline.h readline.cpp repl.cpp repl.h string_opt.h ${SHELL_SOURCE})
 
 add_executable(cat bin/cat.cpp)
+add_executable(ls bin/ls.cpp)
 
 target_link_libraries(unique_lab_shell readline)
 
