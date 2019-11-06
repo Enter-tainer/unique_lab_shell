@@ -40,9 +40,9 @@ TEST_CASE("trim") {
 }
 
 TEST_CASE("split") {
-  REQUIRE(std::string("qwq qwq") == mgt::str::split_and_return_last("echo qwq qwq "));
+  REQUIRE(std::string("qwq qwq") == mgt::str::split_and_return_last("echo qwq qwq"));
   REQUIRE(std::string("") == mgt::str::split_and_return_last("cd"));
   REQUIRE(std::vector<std::string>{"ls", "-l", "qwq", "eoe"} == mgt::str::split("ls -l qwq eoe"));
-  REQUIRE(std::vector<std::string>{"", "f", "fg", "h", "g"} == mgt::str::split(" f fg h g "));
+  REQUIRE(std::vector<std::string>{"f", "fg", "h", "g"} == mgt::str::split(" f fg h g "));
   REQUIRE(std::vector<std::string>{"ls"} == mgt::str::split("ls"));
 }

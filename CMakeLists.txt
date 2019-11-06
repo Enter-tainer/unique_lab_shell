@@ -13,7 +13,7 @@ add_executable(cat bin/cat.cpp)
 
 target_link_libraries(unique_lab_shell readline)
 
-add_executable(string_opt_test spec/string_opt_test.cpp bin/cat.cpp)
+add_executable(string_opt_test spec/string_opt_test.cpp)
 target_link_libraries(string_opt_test Catch2::Catch2)
 include(CTest)
 include(Catch)

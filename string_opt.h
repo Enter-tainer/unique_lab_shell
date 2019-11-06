@@ -65,16 +65,15 @@ inline std::string split_and_return_last(const std::string &str) {
 }
 
 inline std::vector<std::string> split(const std::string &str, char ch) {
-  std::vector<std::string> res;
-  size_t prev = 0, pos = 0;
-  do {
-    pos = str.find(ch, prev);
-    if (pos == std::string::npos) pos = str.length();
-    std::string token = str.substr(prev, pos - prev);
-    res.push_back(token);
-    prev = pos + 1;
-  } while (pos < str.length() && prev < str.length());
-  return res;
+  std::stringstream ss(str);
+  std::vector<std::string> elem;
+  std::string item;
+  while (std::getline(ss, item, ch)) {
+    if (item.length() > 0) {
+      elem.push_back(item);
+    }
+  }
+  return elem;
 }
 
 inline std::vector<std::string> split(const std::string &str) {
