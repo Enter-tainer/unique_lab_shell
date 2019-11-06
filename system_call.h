@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <fcntl.h>
+#include <sys/stat.h>
 #include <sys/syscall.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -83,6 +84,10 @@ inline int open(const char *pathname, int flags, mode_t mode) {
 
 inline int close(int fd) {
   return ::close(fd);
+}
+
+inline int mkdir(const char *path, mode_t mode) {
+  return ::mkdir(path, mode);
 }
 
 } // namespace sys
@@ -200,6 +205,14 @@ inline int close(int fd) {
   int res;
   if ((res = sys::close(fd))) {
     unix_error("cannot close: ");
+  }
+  return res;
+}
+
+inline int mkdir(const char *path, mode_t mode) {
+  int res;
+  if ((res = sys::mkdir(path, mode))) {
+    unix_error("cannot mkdir: ");
   }
   return res;
 }

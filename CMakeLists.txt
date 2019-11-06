@@ -12,6 +12,7 @@ add_executable(unique_lab_shell main.cpp system_call.h
 add_executable(cat bin/cat.cpp)
 add_executable(ls bin/ls.cpp)
 add_executable(touch bin/touch.cpp)
+add_executable(mkdir bin/mkdir.cpp)
 
 target_link_libraries(unique_lab_shell readline)
 
