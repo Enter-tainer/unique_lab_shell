@@ -8,7 +8,7 @@
 #include <fcntl.h>
 #include <string>
 
-namespace mgt {
+namespace mgt::bin {
 void touch(const char *path) {
   int fd = sys_wrapped::open(path, O_RDWR | O_CREAT, 0644); // NOLINT(hicpp-signed-bitwise)
   sys_wrapped::close(fd);
@@ -18,8 +18,9 @@ void touch(const char *path) {
 int main(int argc, char **argv) {
   if (argc == 1) {
     std::cout << "Missing operands" << std::endl;
+    return 1;
   }
   for (int i = 1; i < argc; ++i) {
-    mgt::touch(argv[i]);
+    mgt::bin::touch(argv[i]);
   }
 }

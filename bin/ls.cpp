@@ -12,7 +12,7 @@
 #include <vector>
 #include <algorithm>
 
-namespace mgt {
+namespace mgt::bin {
 
 std::pair<int, int> get_term_size() { // <row, col>
   winsize w{};
@@ -56,22 +56,22 @@ void ll(const std::string &path) {
 
 int main(int argc, char **argv) {
   if (argc == 1) { // ls .
-    mgt::ls(".");
+    mgt::bin::ls(".");
   } else if (argc == 2) {
     if (!std::strcmp(argv[1], "-l")) { // ls -l .
-      mgt::ll(".");
+      mgt::bin::ll(".");
     } else {
       std::string dir_name(argv[1]); // ls dirname
-      mgt::ls(std::string(dir_name));
+      mgt::bin::ls(std::string(dir_name));
     }
   } else { // argc > 2
     if (!std::strcmp(argv[1], "-l")) { // ls -l dir1 dir2 ...
       for (int i = 2; i < argc; ++i) {
-        mgt::ll(std::string(argv[i]));
+        mgt::bin::ll(std::string(argv[i]));
       }
     } else { // ls dir1, dir2 ...
       for (int i = 1; i < argc; ++i) {
-        mgt::ls(std::string(argv[i]));
+        mgt::bin::ls(std::string(argv[i]));
       }
     }
   }
