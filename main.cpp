@@ -2,11 +2,12 @@
 #include <cstdio>
 #include <string>
 
-#include <readline/readline.h>
-
 #include "readline.h"
 #include "system_call.h"
 #include "repl.h"
+
+#include "parser/parser.h"
+#include "parser/tokenizer.h"
 
 void sig_handle(int sig) {
   if (sig == SIGINT) {
@@ -15,9 +16,12 @@ void sig_handle(int sig) {
 }
 
 int main() {
-  std::string line_input;
-  mgt::sys_wrapped::signal(SIGINT, sig_handle);
-  mgt::sys_wrapped::dup2(1, 2);
-  mgt::repl();
+  std::string str = "ls -l < in > out";
+  auto q = mgt::token::tokenize(str);
+  auto t = mgt::parse::parse(q);
+//  std::string line_input;
+//  mgt::sys_wrapped::signal(SIGINT, sig_handle);
+//  mgt::sys_wrapped::dup2(1, 2);
+//  mgt::repl();
   return 0;
 }

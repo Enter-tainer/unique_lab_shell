@@ -90,6 +90,14 @@ inline int mkdir(const char *path, mode_t mode) {
   return ::mkdir(path, mode);
 }
 
+inline ssize_t read(int fd, void *buf, size_t count) {
+  return ::read(fd, buf, count);
+}
+
+inline ssize_t write(int fd, const void *buf, size_t count) {
+  return ::write(fd, buf, count);
+}
+
 } // namespace sys
 
 namespace sys_wrapped {
@@ -213,6 +221,22 @@ inline int mkdir(const char *path, mode_t mode) {
   int res;
   if ((res = sys::mkdir(path, mode))) {
     unix_error("cannot mkdir: ");
+  }
+  return res;
+}
+
+inline ssize_t read(int fd, void *buf, size_t count) {
+  ssize_t res;
+  if ((res = sys::read(fd, buf, count) < 0)) {
+    unix_error("cannot read: ");
+  }
+  return res;
+}
+
+inline ssize_t write(int fd, const void *buf, size_t count) {
+  ssize_t res;
+  if ((res = sys::write(fd, buf, count) < 0)) {
+    unix_error("cannot write: ");
   }
   return res;
 }
