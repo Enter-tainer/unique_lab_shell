@@ -10,5 +10,5 @@
 
 namespace mgt::cmd {
 void echo(const std::string &str);
-}
+} // namespace mgt::cmd
 #endif //UNIQUE_LAB_SHELL_ECHO_H

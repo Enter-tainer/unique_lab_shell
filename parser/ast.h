@@ -19,5 +19,5 @@ class AST {
     parse::eval::eval(root_);
   }
 };
-}
+} // namespace mgt::parse::ast
 #endif //UNIQUE_LAB_SHELL_AST_H

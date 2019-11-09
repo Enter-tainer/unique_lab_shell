@@ -9,5 +9,5 @@
 
 namespace mgt::cmd {
 void exit();
-}
+} // namespace mgt::cmd
 #endif //UNIQUE_LAB_SHELL_EXIT_H

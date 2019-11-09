@@ -52,7 +52,7 @@ void ls(const std::string &path) {
 void ll(const std::string &path) {
 
 }
-}
+} // namespace mgt::bin
 
 int main(int argc, char **argv) {
   if (argc == 1) { // ls .

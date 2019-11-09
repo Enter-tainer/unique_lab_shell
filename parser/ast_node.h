@@ -51,7 +51,7 @@ class PipeNode : public Node {
   std::shared_ptr<Node> lc, rc;
 };
 
-}
+} // namespace mgt::parse::ast
 
 
 #endif //UNIQUE_LAB_SHELL_AST_NODE_H

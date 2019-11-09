@@ -13,7 +13,7 @@ void touch(const char *path) {
   int fd = sys_wrapped::open(path, O_RDWR | O_CREAT, 0644); // NOLINT(hicpp-signed-bitwise)
   sys_wrapped::close(fd);
 }
-}
+} // namespace mgt::bin
 
 int main(int argc, char **argv) {
   if (argc == 1) {

@@ -12,5 +12,5 @@
 namespace mgt::cmd {
 std::string get_cwd();
 void pwd();
-}
+} // namespace mgt::cmd
 #endif //UNIQUE_LAB_SHELL_PWD_H

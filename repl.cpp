@@ -6,7 +6,6 @@
 #include "parser/parser.h"
 #include "parser/ast_node.h"
 #include "parser/ast.h"
-#include "parser/eval.h"
 
 namespace mgt {
 void repl() {

@@ -26,6 +26,6 @@ static const std::string prompt{">>= "}; // NOLINT(cert-err58-cpp)
 void process_input(const std::string &input);
 
 void repl();
-}
+} // namespace mgt
 
 #endif //UNIQUE_LAB_SHELL_REPL_H

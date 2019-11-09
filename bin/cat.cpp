@@ -18,7 +18,7 @@ void putchar(int fd, char ch) {
   tmp[0] = ch;
   mgt::sys_wrapped::write(fd, tmp, 1);
 }
-}
+} // namespace mgt::bin
 
 int main(int argc, char **argv) {
   if (argc == 1) {

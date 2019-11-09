@@ -8,7 +8,7 @@
 
 namespace mgt::parse::eval {
 
-void eval(std::shared_ptr<ast::Node> root) {
+void eval(const std::shared_ptr<ast::Node> &root) {
   if (std::dynamic_pointer_cast<ast::CommandNode>(root)) {
     auto x = std::dynamic_pointer_cast<ast::CommandNode>(root);
     int in = STDIN_FILENO, out = STDOUT_FILENO;
@@ -34,7 +34,7 @@ void eval(std::shared_ptr<ast::Node> root) {
   }
 }
 
-void eval_pipe(std::shared_ptr<ast::CommandNode> l, std::shared_ptr<ast::CommandNode> r) {
+void eval_pipe(const std::shared_ptr<ast::CommandNode> &l, const std::shared_ptr<ast::CommandNode> &r) {
   int fd[2];
   sys_wrapped::pipe(fd);
   int in = STDIN_FILENO, out = STDOUT_FILENO;
@@ -48,4 +48,4 @@ void eval_pipe(std::shared_ptr<ast::CommandNode> l, std::shared_ptr<ast::Command
   cmd::run(r->cmd, r->argv, fd[0], out);
   ::exit(0);
 }
-}
+} // namespace mgt::parse::eval

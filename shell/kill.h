@@ -11,5 +11,5 @@
 
 namespace mgt::cmd {
 void kill(const std::string &pid);
-}
+} // namespace mgt::cmd
 #endif //UNIQUE_LAB_SHELL_KILL_H

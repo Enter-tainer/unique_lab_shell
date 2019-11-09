@@ -13,5 +13,5 @@
 
 namespace mgt::cmd {
 void cd(const std::string &path);
-}
+} // namespace mgt::cmd
 #endif //UNIQUE_LAB_SHELL_CD_H

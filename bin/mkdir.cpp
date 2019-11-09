@@ -10,7 +10,7 @@ namespace mgt::bin {
 void mkdir(const char *path) {
   sys_wrapped::mkdir(path, 0755);
 }
-}
+} // namespace mgt::bin
 
 int main(int argc, char **argv) {
   if (argc == 1) {

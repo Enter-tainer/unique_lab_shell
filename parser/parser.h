@@ -21,5 +21,5 @@ parse_command(const std::vector<std::shared_ptr<mgt::token::Token>> &tokens, int
 
 namespace mgt::parse {
 ast::AST parse(const std::string &input);
-}
+} // namespace mgt::parse::impl
 #endif //UNIQUE_LAB_SHELL_PARSER_H

@@ -43,5 +43,5 @@ class Pipe : public Token {
 
   ~Pipe() override = default;
 };
-}
+} // namespace mgt::token
 #endif //UNIQUE_LAB_SHELL_TOKEN_H
