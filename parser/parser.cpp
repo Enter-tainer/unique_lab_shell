@@ -3,9 +3,10 @@
 //
 
 #include "parser.h"
+#include "tokenizer.h"
 
 std::shared_ptr<mgt::parse::ast::Node>
-mgt::parse::parse(const std::vector<std::shared_ptr<mgt::token::Token>> &tokens, int l, int r) {
+mgt::parse::impl::parse(const std::vector<std::shared_ptr<mgt::token::Token>> &tokens, int l, int r) {
   // [l, r)
   bool has_pipe = tokens.begin() + r != std::find_if(tokens.begin() + l, tokens.begin() + r, [](auto ptr) {
     return std::dynamic_pointer_cast<token::Pipe>(ptr);
@@ -25,7 +26,7 @@ mgt::parse::parse(const std::vector<std::shared_ptr<mgt::token::Token>> &tokens,
 }
 
 std::shared_ptr<mgt::parse::ast::CommandNode>
-mgt::parse::parse_command(const std::vector<std::shared_ptr<mgt::token::Token>> &tokens, int l, int r) {
+mgt::parse::impl::parse_command(const std::vector<std::shared_ptr<mgt::token::Token>> &tokens, int l, int r) {
   bool has_redirectL = tokens.begin() + r != std::find_if(tokens.begin() + l, tokens.begin() + r, [](auto ptr) {
     return std::dynamic_pointer_cast<token::RedirectL>(ptr);
   });
@@ -59,6 +60,10 @@ mgt::parse::parse_command(const std::vector<std::shared_ptr<mgt::token::Token>> 
 }
 
 std::shared_ptr<mgt::parse::ast::Node>
-mgt::parse::parse(const std::vector<std::shared_ptr<mgt::token::Token>> &tokens) {
+mgt::parse::impl::parse(const std::vector<std::shared_ptr<mgt::token::Token>> &tokens) {
   return parse(tokens, 0, tokens.size());
+}
+
+mgt::parse::ast::AST mgt::parse::parse(const std::string &input) {
+  return ast::AST(impl::parse(token::tokenize(input)));
 }
