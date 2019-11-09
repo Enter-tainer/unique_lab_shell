@@ -15,7 +15,7 @@ void sig_handle(int sig) {
 int main() {
   std::string line_input;
   mgt::sys_wrapped::signal(SIGINT, sig_handle);
-  mgt::sys_wrapped::dup2(1, 2);
+//  mgt::sys_wrapped::dup2(1, 2);
   mgt::repl();
   return 0;
 }

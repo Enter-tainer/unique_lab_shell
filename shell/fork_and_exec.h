@@ -11,8 +11,17 @@
 #include <vector>
 
 namespace mgt::cmd {
-void run(const std::string &file_name, const std::vector<std::string> &argv);
 
-void run(const std::string &file_name, char *const *argv);
+void run_external(const std::string &file_name, const std::vector<std::string> &argv,
+                  int in_fd = STDIN_FILENO,
+                  int out_fd = STDOUT_FILENO);
+
+void run(const std::string &file_name, const std::vector<std::string> &argv,
+         int in_fd = STDIN_FILENO,
+         int out_fd = STDOUT_FILENO);
+
+void run(const std::string &file_name, char *const *argv,
+         int in_fd = STDIN_FILENO,
+         int out_fd = STDOUT_FILENO);
 }
 #endif //UNIQUE_LAB_SHELL_FORK_AND_EXEC_H

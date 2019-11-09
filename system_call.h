@@ -82,6 +82,10 @@ inline int open(const char *pathname, int flags, mode_t mode) {
   return ::open(pathname, flags, mode);
 }
 
+inline int open(const char *pathname, int flags) {
+  return ::open(pathname, flags);
+}
+
 inline int close(int fd) {
   return ::close(fd);
 }
@@ -96,6 +100,10 @@ inline ssize_t read(int fd, void *buf, size_t count) {
 
 inline ssize_t write(int fd, const void *buf, size_t count) {
   return ::write(fd, buf, count);
+}
+
+inline int pipe(int pipe_fd[2]) {
+  return ::pipe(pipe_fd);
 }
 
 } // namespace sys
@@ -149,7 +157,7 @@ inline int execve(const char *filename, char *const argv[], char *const envp[]) 
 
 inline int execvp(const char *file, char *const argv[]) {
   int res;
-  if ((res = sys::execvp(file, argv) < 0)) {
+  if ((res = sys::execvp(file, argv)) < 0) {
     unix_error("execvp failed: ");
   }
   return res;
@@ -157,7 +165,7 @@ inline int execvp(const char *file, char *const argv[]) {
 
 inline int execvpe(const char *file, char *const argv[], char *const envp[]) {
   int res;
-  if ((res = sys::execvpe(file, argv, envp) < 0)) {
+  if ((res = sys::execvpe(file, argv, envp)) < 0) {
     unix_error("execvpe failed: ");
   }
   return res;
@@ -197,14 +205,22 @@ inline int chdir(const char *path) {
 inline int dup2(int old_fd, int new_fd) {
   int res;
   if ((res = sys::dup2(old_fd, new_fd)) < 0)
-    unix_error("dup2 failed: ");
+    unix_error("dup2 failed");
   return res;
 }
 
 inline int open(const char *pathname, int flags, mode_t mode) {
   int res;
-  if ((res = sys::open(pathname, flags, mode) < 0)) {
-    unix_error("cannot open: ");
+  if ((res = sys::open(pathname, flags, mode)) < 0) {
+    unix_error("cannot open");
+  }
+  return res;
+}
+
+inline int open(const char *pathname, int flags) {
+  int res;
+  if ((res = sys::open(pathname, flags)) < 0) {
+    unix_error("cannot open");
   }
   return res;
 }
@@ -212,31 +228,39 @@ inline int open(const char *pathname, int flags, mode_t mode) {
 inline int close(int fd) {
   int res;
   if ((res = sys::close(fd))) {
-    unix_error("cannot close: ");
+    unix_error("cannot close");
   }
   return res;
 }
 
 inline int mkdir(const char *path, mode_t mode) {
   int res;
-  if ((res = sys::mkdir(path, mode))) {
-    unix_error("cannot mkdir: ");
+  if ((res = sys::mkdir(path, mode)) < 0) {
+    unix_error("cannot mkdir");
   }
   return res;
 }
 
 inline ssize_t read(int fd, void *buf, size_t count) {
   ssize_t res;
-  if ((res = sys::read(fd, buf, count) < 0)) {
-    unix_error("cannot read: ");
+  if ((res = sys::read(fd, buf, count)) < 0) {
+    unix_error("cannot read");
   }
   return res;
 }
 
 inline ssize_t write(int fd, const void *buf, size_t count) {
   ssize_t res;
-  if ((res = sys::write(fd, buf, count) < 0)) {
-    unix_error("cannot write: ");
+  if ((res = sys::write(fd, buf, count)) < 0) {
+    unix_error("cannot write");
+  }
+  return res;
+}
+
+inline int pipe(int pipe_fd[2]) {
+  int res;
+  if ((res = sys::pipe(pipe_fd)) < 0) {
+    unix_error("cannot create pipe");
   }
   return res;
 }

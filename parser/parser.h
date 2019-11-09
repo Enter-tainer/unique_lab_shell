@@ -7,6 +7,7 @@
 
 #include "token.h"
 #include "ast_node.h"
+#include "ast.h"
 #include <algorithm>
 
 namespace mgt::parse::impl {

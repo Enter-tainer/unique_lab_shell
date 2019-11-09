@@ -15,7 +15,9 @@ class AST {
  public:
   explicit AST(std::shared_ptr <Node> root) : root_(std::move(root)) {};
 
-  void eval();
+  void eval() {
+    parse::eval::eval(root_);
+  }
 };
 }
 #endif //UNIQUE_LAB_SHELL_AST_H
