@@ -34,47 +34,47 @@ void mgt::cmd::run(const std::string &file_name, const std::vector<std::string> 
   if (!matched) {
     run_external(file_name, argv, in_fd, out_fd);
   } else {
-    pid_t pid = mgt::sys_wrapped::fork();
-    if (pid == 0) {
-      mgt::sys_wrapped::dup2(in_fd, STDIN_FILENO);
-      mgt::sys_wrapped::dup2(out_fd, STDOUT_FILENO);
-      if (in_fd != STDIN_FILENO)
-        sys_wrapped::close(in_fd);
-      if (out_fd != STDOUT_FILENO)
-        sys_wrapped::close(out_fd);
-      switch (cmd) { // NOLINT(hicpp-multiway-paths-covered)
-        case kEcho: {
+    switch (cmd) { // NOLINT(hicpp-multiway-paths-covered)
+      case kEcho: {
+        pid_t pid = mgt::sys_wrapped::fork();
+        if (pid == 0) {
+          mgt::sys_wrapped::dup2(in_fd, STDIN_FILENO);
+          mgt::sys_wrapped::dup2(out_fd, STDOUT_FILENO);
+          if (in_fd != STDIN_FILENO)
+            sys_wrapped::close(in_fd);
+          if (out_fd != STDOUT_FILENO)
+            sys_wrapped::close(out_fd);
           std::string res;
-          for (auto &i : argv)
-            res += i;
+          for (int i = 1; i < argv.size(); ++i)
+            res += argv[i];
           mgt::cmd::echo(res);
-          break;
+          ::exit(0);
+        } else {
+          int status;
+          mgt::sys_wrapped::waitpid(pid, &status, 0);
+          if (in_fd != STDIN_FILENO)
+            sys_wrapped::close(in_fd);
+          if (out_fd != STDOUT_FILENO)
+            sys_wrapped::close(out_fd);
         }
-        case kExit: {
-          mgt::cmd::exit();
-          break;
-        }
-        case kCd: {
-          mgt::cmd::cd(argv[1]);
-          break;
-        }
-        case kPwd: {
-          mgt::cmd::pwd();
-          break;
-        }
-        case kKill: {
-          mgt::cmd::kill(argv[1]);
-          break;
-        }
+        break;
       }
-      ::exit(0);
-    } else {
-      int status;
-      mgt::sys_wrapped::waitpid(pid, &status, 0);
-      if (in_fd != STDIN_FILENO)
-        sys_wrapped::close(in_fd);
-      if (out_fd != STDOUT_FILENO)
-        sys_wrapped::close(out_fd);
+      case kExit: {
+        mgt::cmd::exit();
+        break;
+      }
+      case kCd: {
+        mgt::cmd::cd(argv[1]);
+        break;
+      }
+      case kPwd: {
+        mgt::cmd::pwd();
+        break;
+      }
+      case kKill: {
+        mgt::cmd::kill(argv[1]);
+        break;
+      }
     }
   }
 }
