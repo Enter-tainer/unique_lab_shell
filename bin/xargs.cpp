@@ -18,5 +18,6 @@ int main(int argc, char **argv) {
     new_argv[argc - 1] = const_cast<char *>(arg.c_str());
     new_argv[argc] = nullptr;
     mgt::cmd::run(new_argv[0], new_argv);
+    delete[] new_argv;
   }
 }
