@@ -18,6 +18,7 @@ add_executable(ls bin/ls.cpp)
 add_executable(touch bin/touch.cpp)
 add_executable(mkdir bin/mkdir.cpp)
 add_executable(rm bin/rm.cpp)
+add_executable(cp bin/cp.cpp)
 add_executable(xargs bin/xargs.cpp ${SHELL_SOURCE})
 target_link_libraries(unique_lab_shell readline)
 
