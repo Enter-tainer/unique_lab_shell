@@ -106,6 +106,10 @@ inline int pipe(int pipe_fd[2]) {
   return ::pipe(pipe_fd);
 }
 
+inline int unlink(const char *pathname) {
+  return ::unlink(pathname);
+}
+
 } // namespace sys
 
 namespace sys_wrapped {
@@ -261,6 +265,14 @@ inline int pipe(int pipe_fd[2]) {
   int res;
   if ((res = sys::pipe(pipe_fd)) < 0) {
     unix_error("cannot create pipe");
+  }
+  return res;
+}
+
+inline int unlink(const char *pathname) {
+  int res;
+  if ((res = sys::unlink(pathname)) < 0) {
+    unix_error("cannot unlink");
   }
   return res;
 }
