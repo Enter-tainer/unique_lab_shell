@@ -4,9 +4,6 @@
 
 #include <iostream>
 #include <cstdio>
-#include <string>
-
-#include "../system_call.h"
 
 int main(int argc, char **argv) {
   if (argc != 3) {

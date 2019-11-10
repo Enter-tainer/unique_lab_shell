@@ -110,6 +110,14 @@ inline int unlink(const char *pathname) {
   return ::unlink(pathname);
 }
 
+inline int link(const char *old_path, const char *new_path) {
+  return ::link(old_path, new_path);
+}
+
+inline int symlink(const char *old_path, const char *new_path) {
+  return ::symlink(old_path, new_path);
+}
+
 } // namespace sys
 
 namespace sys_wrapped {
@@ -273,6 +281,22 @@ inline int unlink(const char *pathname) {
   int res;
   if ((res = sys::unlink(pathname)) < 0) {
     unix_error("cannot unlink");
+  }
+  return res;
+}
+
+inline int link(const char *old_path, const char *new_path) {
+  int res;
+  if ((res = sys::link(old_path, new_path)) < 0) {
+    unix_error("link failed");
+  }
+  return res;
+}
+
+inline int symlink(const char *old_path, const char *new_path) {
+  int res;
+  if ((res = sys::symlink(old_path, new_path)) < 0) {
+    unix_error("link failed");
   }
   return res;
 }
