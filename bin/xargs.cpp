@@ -10,8 +10,19 @@
 #include <iostream>
 
 int main(int argc, char **argv) {
+  char delim = '\n';
+  if (argc >= 2) {
+    auto tmp = std::string(argv[1]);
+    if (tmp.find("-d") == 0) {
+      delim = argv[2][0];
+      for (int i = 1; i + 2 < argc; ++i) {
+        argv[i] = argv[i + 2];
+      }
+      argc -= 2;
+    }
+  }
   std::string arg;
-  while (std::getline(std::cin, arg)) {
+  while (std::getline(std::cin, arg, delim)) {
     char **new_argv = new char *[argc + 1];
     for (int i = 1; i < argc; ++i)
       new_argv[i - 1] = argv[i];
