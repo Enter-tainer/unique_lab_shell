@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <fcntl.h>
+#include <termios.h>
 #include <sys/stat.h>
 #include <sys/syscall.h>
 #include <sys/types.h>
@@ -52,14 +53,16 @@ using ::pipe;
 using ::unlink;
 using ::link;
 using ::symlink;
-
+using ::tcgetattr;
+using ::tcsetattr;
+using ::lseek;
 } // namespace sys
 
 namespace sys_wrapped {
 
 // this namespace wrap sys calls with error handling
 inline void unix_error(const char *msg) {
-  std::cerr << msg << ": " << strerror(errno);
+  std::cerr << msg << ": " << strerror(errno) << std::endl;
   exit(0);
 }
 
@@ -232,6 +235,30 @@ inline int symlink(const char *old_path, const char *new_path) {
   int res;
   if ((res = sys::symlink(old_path, new_path)) < 0) {
     unix_error("link failed");
+  }
+  return res;
+}
+
+inline int tcgetattr(int fd, termios *p) {
+  int res;
+  if ((res = sys::tcgetattr(fd, p)) < 0) {
+    unix_error("get terminal attr failed");
+  }
+  return res;
+}
+
+inline int tcsetattr(int fd, int options, const termios *p) {
+  int res;
+  if ((res = sys::tcsetattr(fd, options, p)) < 0) {
+    unix_error("cannot get terminal attr");
+  }
+  return res;
+}
+
+inline off_t lseek(int fd, off_t offset, int mode) {
+  off_t res;
+  if ((res = sys::lseek(fd, offset, mode)) < 0) {
+    unix_error("seek failed");
   }
   return res;
 }

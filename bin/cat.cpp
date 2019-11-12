@@ -5,20 +5,7 @@
 //
 
 #include "../system_call.h"
-
-namespace mgt::bin {
-char getchar(int fd) {
-  char tmp[2] = {0};
-  mgt::sys_wrapped::read(fd, tmp, 1);
-  return tmp[0];
-}
-
-void putchar(int fd, char ch) {
-  char tmp[2] = {0};
-  tmp[0] = ch;
-  mgt::sys_wrapped::write(fd, tmp, 1);
-}
-} // namespace mgt::bin
+#include "util.h"
 
 int main(int argc, char **argv) {
   if (argc == 1) {
