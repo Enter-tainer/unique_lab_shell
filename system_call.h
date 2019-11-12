@@ -21,62 +21,20 @@
 namespace mgt {
 namespace sys {
 // this namespace re-wrap functions in sys folder
-inline pid_t fork() {
-  return ::fork();
-}
-
-inline pid_t waitpid(pid_t pid, int *status, int options) {
-  return ::waitpid(pid, status, options);
-}
-
-inline pid_t wait(int *status) {
-  return ::wait(status);
-}
-
-inline unsigned int sleep(unsigned int sec) {
-  return ::sleep(sec);
-}
-
-inline int pause() {
-  return ::pause();
-}
-
-inline int execve(const char *filename, char *const argv[], char *const envp[]) {
-  return ::execve(filename, argv, envp);
-}
-
-inline int execvp(const char *file, char *const argv[]) {
-  return ::execvp(file, argv);
-}
-
-inline int execvpe(const char *file, char *const argv[], char *const envp[]) {
-  return ::execvpe(file, argv, envp);
-}
-
-inline int kill(pid_t pid, int sig) {
-  return ::kill(pid, sig);
-}
-
-inline unsigned int alarm(unsigned int sec) {
-  return ::alarm(sec);
-}
-
-inline sighandler_t signal(int sig, sighandler_t handle) {
-  return ::signal(sig, handle);
-}
-
-inline int sigaction(int dig, const struct sigaction *__restrict act,
-                     struct sigaction *__restrict old_act) {
-  return ::sigaction(dig, act, old_act);
-}
-
-inline int chdir(const char *path) {
-  return ::chdir(path);
-}
-
-inline int dup2(int old_fd, int new_fd) {
-  return ::dup2(old_fd, new_fd);
-}
+using ::fork;
+using ::waitpid;
+using ::wait;
+using ::sleep;
+using ::pause;
+using ::execve;
+using ::execvp;
+using ::execvpe;
+using ::kill;
+using ::alarm;
+using ::signal;
+using ::sigaction;
+using ::chdir;
+using ::dup2;
 
 inline int open(const char *pathname, int flags, mode_t mode) {
   return ::open(pathname, flags, mode);
@@ -86,37 +44,14 @@ inline int open(const char *pathname, int flags) {
   return ::open(pathname, flags);
 }
 
-inline int close(int fd) {
-  return ::close(fd);
-}
-
-inline int mkdir(const char *path, mode_t mode) {
-  return ::mkdir(path, mode);
-}
-
-inline ssize_t read(int fd, void *buf, size_t count) {
-  return ::read(fd, buf, count);
-}
-
-inline ssize_t write(int fd, const void *buf, size_t count) {
-  return ::write(fd, buf, count);
-}
-
-inline int pipe(int pipe_fd[2]) {
-  return ::pipe(pipe_fd);
-}
-
-inline int unlink(const char *pathname) {
-  return ::unlink(pathname);
-}
-
-inline int link(const char *old_path, const char *new_path) {
-  return ::link(old_path, new_path);
-}
-
-inline int symlink(const char *old_path, const char *new_path) {
-  return ::symlink(old_path, new_path);
-}
+using ::close;
+using ::mkdir;
+using ::read;
+using ::write;
+using ::pipe;
+using ::unlink;
+using ::link;
+using ::symlink;
 
 } // namespace sys
 
