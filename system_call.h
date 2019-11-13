@@ -56,6 +56,8 @@ using ::symlink;
 using ::tcgetattr;
 using ::tcsetattr;
 using ::lseek;
+using ::setenv;
+using ::getenv;
 } // namespace sys
 
 namespace sys_wrapped {
@@ -262,6 +264,16 @@ inline off_t lseek(int fd, off_t offset, int mode) {
   }
   return res;
 }
+
+inline int setenv(const char *name, const char *value, int overwrite) {
+  int res;
+  if ((res = sys::setenv(name, value, overwrite)) < 0) {
+    unix_error("cannot set env");
+  }
+  return res;
+}
+
+using sys::getenv;
 
 } // namespace sys_wrapped
 } // namespace mgt
