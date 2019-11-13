@@ -15,7 +15,7 @@ class Token {
   virtual ~Token() = default;
 };
 
-// data Token = Lit String | RedirectL | RedirectR | Pipe
+// data Token = Lit String | RedirectL | RedirectR | Pipe | Background
 class Lit : public Token {
  public:
   explicit Lit(const std::string &cmd) { str = cmd; };
@@ -28,6 +28,13 @@ class RedirectL : public Token {
   RedirectL() { str = "<"; }
 
   ~RedirectL() override = default;
+};
+
+class Background : public Token {
+ public:
+  Background() { str = "&"; }
+
+  ~Background() override = default;
 };
 
 class RedirectR : public Token {

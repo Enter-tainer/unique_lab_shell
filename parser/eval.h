@@ -7,7 +7,7 @@
 
 #include "ast_node.h"
 
-namespace mgt::parse::eval {
+namespace mgt::parse {
 void eval(const std::shared_ptr<ast::Node> &root);
 
 void eval_pipe(const std::shared_ptr<ast::CommandNode> &l, const std::shared_ptr<ast::CommandNode> &r);

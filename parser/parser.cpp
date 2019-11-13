@@ -5,24 +5,29 @@
 #include "parser.h"
 #include "tokenizer.h"
 
-std::shared_ptr<mgt::parse::ast::Node>
-mgt::parse::impl::parse(const std::vector<std::shared_ptr<mgt::token::Token>> &tokens, int l, int r) {
+std::vector<std::shared_ptr<mgt::parse::ast::Node>>
+mgt::parse::impl::parse(const std::vector<std::shared_ptr<mgt::token::Token>> &tokens) {
   // [l, r)
-  bool has_pipe = tokens.begin() + r != std::find_if(tokens.begin() + l, tokens.begin() + r, [](auto ptr) {
-    return std::dynamic_pointer_cast<token::Pipe>(ptr);
-  });
-  if (has_pipe) {
-    for (int i = r - 1; i >= l; --i) {
-      if (std::dynamic_pointer_cast<token::Pipe>(tokens[i])) {
-        std::shared_ptr<ast::PipeNode> res = std::make_shared<ast::PipeNode>();
-        res->lc = parse(tokens, l, i);
-        res->rc = parse(tokens, i + 1, r);
-        return std::static_pointer_cast<ast::Node>(res);
-      }
+  std::vector<std::shared_ptr<mgt::parse::ast::Node>> res;
+  int l = 0, r = 0;
+  for (int i = 0; i < tokens.size(); ++i, ++r) {
+    if (std::dynamic_pointer_cast<token::Pipe>(tokens[i])) {
+      auto x = parse_command(tokens, l, r);
+      res.push_back(std::static_pointer_cast<ast::Node>(x));
+      res.push_back(std::static_pointer_cast<ast::Node>(std::make_shared<ast::PipeNode>()));
+      l = i + 1;
+    } else if (std::dynamic_pointer_cast<token::Background>(tokens[i])) {
+      auto x = parse_command(tokens, l, r);
+      res.push_back(std::static_pointer_cast<ast::Node>(x));
+      res.push_back(std::static_pointer_cast<ast::Node>(std::make_shared<ast::BackgroundNode>()));
+      l = i + 1;
     }
-  } else {
-    return std::static_pointer_cast<ast::Node>(parse_command(tokens, l, r));
   }
+  if (l < r) {
+    auto x = parse_command(tokens, l, r);
+    res.push_back(std::static_pointer_cast<ast::Node>(x));
+  }
+  return res;
 }
 
 std::shared_ptr<mgt::parse::ast::CommandNode>
@@ -59,11 +64,7 @@ mgt::parse::impl::parse_command(const std::vector<std::shared_ptr<mgt::token::To
   return res;
 }
 
-std::shared_ptr<mgt::parse::ast::Node>
-mgt::parse::impl::parse(const std::vector<std::shared_ptr<mgt::token::Token>> &tokens) {
-  return parse(tokens, 0, tokens.size());
-}
 
-mgt::parse::ast::AST mgt::parse::parse(const std::string &input) {
-  return ast::AST(impl::parse(token::tokenize(input)));
+std::vector<std::shared_ptr<mgt::parse::ast::Node>> mgt::parse::parse(const std::string &input) {
+  return impl::parse(token::tokenize(input));
 }

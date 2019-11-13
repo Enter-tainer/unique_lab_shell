@@ -14,6 +14,9 @@ std::shared_ptr<mgt::token::Token> mgt::token::to_token(const std::string &str) 
   } else if (str == "<") {
     RedirectL s;
     return std::static_pointer_cast<Token>(std::make_shared<RedirectL>(s));
+  } else if (str == "&") {
+    Background s;
+    return std::static_pointer_cast<Token>(std::make_shared<Background>(s));
   } else {
     Lit s(str);
     return std::static_pointer_cast<Token>(std::make_shared<Lit>(s));

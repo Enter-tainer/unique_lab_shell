@@ -47,8 +47,11 @@ class CommandNode : public Node {
 class PipeNode : public Node {
  public:
   ~PipeNode() override = default;
+};
 
-  std::shared_ptr<Node> lc, rc;
+class BackgroundNode : public Node {
+ public:
+  ~BackgroundNode() override = default;
 };
 
 } // namespace mgt::parse::ast
