@@ -106,14 +106,16 @@ int main(int argc, char **argv) {
     disable_echo(STDIN_FILENO);
     while (true) {
       char c = mgt::bin::getchar(STDIN_FILENO);
-      if (c == 'j') {
+      if (c == 'j' || c == '\n') {
         int res = down_1_page(fd, &line_count, &char_count, &newline_pos);
         if (res < height) {
           break;
         }
-      } else if (c == 'k') {
+      } else if (c == 'k' || c == ' ') {
         line_count -= height;
         up_1_page(fd, &line_count, newline_pos);
+      } else if (c == 'q') {
+        ::exit(0);
       }
     }
   }
