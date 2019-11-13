@@ -115,8 +115,9 @@ int main(int argc, char **argv) {
         line_count -= height;
         up_1_page(fd, &line_count, newline_pos);
       } else if (c == 'q') {
-        ::exit(0);
+        break;
       }
     }
+    enable_echo(STDIN_FILENO);
   }
 }

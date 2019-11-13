@@ -6,6 +6,7 @@
 #include "parser/parser.h"
 #include "parser/ast_node.h"
 #include "parser/ast.h"
+#include "readline.h"
 
 namespace mgt {
 void repl() {
@@ -18,6 +19,7 @@ void repl() {
       break;
     mgt::add_history(line_input);
     process_input(line_input);
+
   }
 }
 

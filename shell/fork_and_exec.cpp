@@ -32,7 +32,7 @@ void mgt::cmd::run(const std::string &file_name, const std::vector<std::string> 
     }
   }
   if (!matched) {
-    run_external(file_name, argv, in_fd, out_fd);
+    run_external_sync(file_name, argv, in_fd, out_fd);
   } else {
     switch (cmd) { // NOLINT(hicpp-multiway-paths-covered)
       case kEcho: {
@@ -98,7 +98,13 @@ void mgt::cmd::run(const std::string &file_name, char *const *argv,
   }
 }
 
-void mgt::cmd::run_external(const std::string &file_name, const std::vector<std::string> &argv, int in_fd, int out_fd) {
+void
+mgt::cmd::run_external_sync(const std::string &file_name, const std::vector<std::string> &argv, int in_fd, int out_fd) {
+  basic_run_external(file_name, argv, in_fd, out_fd, true);
+}
+
+void mgt::cmd::basic_run_external(const std::string &file_name, const std::vector<std::string> &argv, int in_fd,
+                                  int out_fd, bool sync) {
   pid_t pid = mgt::sys_wrapped::fork();
   if (pid == 0) {
     char **c_argv = new char *[argv.size() + 1];
@@ -116,10 +122,17 @@ void mgt::cmd::run_external(const std::string &file_name, const std::vector<std:
     ::exit(0);
   } else {
     int status;
-    mgt::sys_wrapped::waitpid(pid, &status, 0);
+    if (sync) {
+      mgt::sys_wrapped::waitpid(pid, &status, 0);
+    }
     if (in_fd != STDIN_FILENO)
       sys_wrapped::close(in_fd);
     if (out_fd != STDOUT_FILENO)
       sys_wrapped::close(out_fd);
   }
+}
+
+void mgt::cmd::run_external_async(const std::string &file_name, const std::vector<std::string> &argv, int in_fd,
+                                  int out_fd) {
+  basic_run_external(file_name, argv, in_fd, out_fd, false);
 }

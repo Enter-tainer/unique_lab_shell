@@ -12,9 +12,18 @@
 
 namespace mgt::cmd {
 
-void run_external(const std::string &file_name, const std::vector<std::string> &argv,
-                  int in_fd = STDIN_FILENO,
-                  int out_fd = STDOUT_FILENO);
+void basic_run_external(const std::string &file_name, const std::vector<std::string> &argv,
+                        int in_fd = STDIN_FILENO,
+                        int out_fd = STDOUT_FILENO,
+                        bool sync = true);
+
+void run_external_sync(const std::string &file_name, const std::vector<std::string> &argv,
+                       int in_fd = STDIN_FILENO,
+                       int out_fd = STDOUT_FILENO);
+
+void run_external_async(const std::string &file_name, const std::vector<std::string> &argv,
+                        int in_fd = STDIN_FILENO,
+                        int out_fd = STDOUT_FILENO);
 
 void run(const std::string &file_name, const std::vector<std::string> &argv,
          int in_fd = STDIN_FILENO,
