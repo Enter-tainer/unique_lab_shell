@@ -10,9 +10,8 @@
 #include "../shell/kill.h"
 #include "../shell/pwd.h"
 
-void mgt::cmd::run(const std::string &file_name, const std::vector<std::string> &argv,
-                   int in_fd,
-                   int out_fd) {
+void
+mgt::cmd::run(const std::string &file_name, const std::vector<std::string> &argv, int in_fd, int out_fd, bool sync) {
   std::vector<std::string> commands{
       "echo",
       "exit",
@@ -32,7 +31,10 @@ void mgt::cmd::run(const std::string &file_name, const std::vector<std::string> 
     }
   }
   if (!matched) {
-    run_external_sync(file_name, argv, in_fd, out_fd);
+    if (sync)
+      run_external_sync(file_name, argv, in_fd, out_fd);
+    else
+      run_external_async(file_name, argv, in_fd, out_fd);
   } else {
     switch (cmd) { // NOLINT(hicpp-multiway-paths-covered)
       case kEcho: {

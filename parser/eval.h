@@ -8,8 +8,8 @@
 #include "ast_node.h"
 
 namespace mgt::parse {
-void eval(const std::shared_ptr<ast::Node> &root);
+void eval(const std::vector<std::shared_ptr<ast::Node>> &cmd);
 
-void eval_pipe(const std::shared_ptr<ast::CommandNode> &l, const std::shared_ptr<ast::CommandNode> &r);
+void basic_eval(const std::vector<std::shared_ptr<ast::Node>> &cmd, bool sync);
 } //namespace mgt::parse::eval
 #endif //UNIQUE_LAB_SHELL_EVAL_H

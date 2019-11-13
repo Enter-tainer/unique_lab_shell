@@ -25,9 +25,7 @@ void run_external_async(const std::string &file_name, const std::vector<std::str
                         int in_fd = STDIN_FILENO,
                         int out_fd = STDOUT_FILENO);
 
-void run(const std::string &file_name, const std::vector<std::string> &argv,
-         int in_fd = STDIN_FILENO,
-         int out_fd = STDOUT_FILENO);
+void run(const std::string &file_name, const std::vector<std::string> &argv, int in_fd, int out_fd, bool sync);
 
 void run(const std::string &file_name, char *const *argv,
          int in_fd = STDIN_FILENO,

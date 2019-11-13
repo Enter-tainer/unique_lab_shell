@@ -6,6 +6,7 @@
 #include "parser/parser.h"
 #include "parser/ast_node.h"
 #include "readline.h"
+#include "parser/eval.h"
 
 namespace mgt {
 void repl() {
@@ -25,7 +26,7 @@ void repl() {
 void process_input(const std::string &input) {
   if (input.empty())
     return;
-//  parse::ast::AST tree = parse::parse(input);
-//  tree.eval();
+  auto x = mgt::parse::parse(input);
+  mgt::parse::eval(x);
 }
 }
