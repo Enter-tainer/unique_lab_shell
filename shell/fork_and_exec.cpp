@@ -9,6 +9,7 @@
 #include "../shell/exit.h"
 #include "../shell/kill.h"
 #include "../shell/pwd.h"
+#include "export.h"
 
 void
 mgt::cmd::run(const std::string &file_name, const std::vector<std::string> &argv, int in_fd, int out_fd, bool sync) {
@@ -17,10 +18,11 @@ mgt::cmd::run(const std::string &file_name, const std::vector<std::string> &argv
       "exit",
       "cd",
       "pwd",
-      "kill"
+      "kill",
+      "export"
   };
   enum CommandType {
-    kEcho, kExit, kCd, kPwd, kKill
+    kEcho, kExit, kCd, kPwd, kKill, kExport
   };
   bool matched = false;
   CommandType cmd{kEcho};
@@ -75,6 +77,13 @@ mgt::cmd::run(const std::string &file_name, const std::vector<std::string> &argv
       }
       case kKill: {
         mgt::cmd::kill(argv[1]);
+        break;
+      }
+      case kExport: {
+        std::string name, value;
+        auto x = mgt::str::split(argv[1], '=');
+        name = x[0], value = x[1];
+        mgt::cmd::export_env(name, value);
         break;
       }
     }

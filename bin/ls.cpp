@@ -128,9 +128,11 @@ int main(int argc, char **argv) {
   } else if (argc == 2) {
     if (!std::strcmp(argv[1], "-l")) { // ls -l .
       mgt::bin::ll(".");
+      std::cout << std::endl;
     } else {
       std::string dir_name(argv[1]); // ls dirname
       mgt::bin::ls(std::string(dir_name));
+      std::cout << std::endl;
     }
   } else { // argc > 2
     if (!std::strcmp(argv[1], "-l")) { // ls -l dir1 dir2 ...
