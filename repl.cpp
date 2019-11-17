@@ -29,4 +29,11 @@ void process_input(const std::string &input) {
   auto x = mgt::parse::parse(input);
   mgt::parse::eval(x);
 }
+
+void load_config(const std::string &path) {
+  std::ifstream in(path);
+  std::string line;
+  std::getline(in, line);
+  mgt::process_input(line);
+}
 }
