@@ -36,21 +36,15 @@ export PATH=/home/mgt/CLionProjects/unique_lab_shell/build:/usr/local/bin:/usr/b
 
 - 【advanced】一条命令中>|<出现多次，并完成非法指令的报错
 
-> 关于报错：无法对 `cmd1 < in > out | cmd2 < in > out | cmd3` 报错
-
 - 后台运行 &
-
-> 仅后台运行，无法在运行结束时输出例如 `Job x ended` 信息
 
 - 实现 export
 
 - 实现 ls，ls -l
 
-> ls -l 写的时候懒了，没有按照每列最宽的元素设定列宽，而是直接写死了
-
 - cat more
 
-> more 的写法比较奇怪，我的做法是保存换行符的位置，内存占用几乎没有，测试可以很正常的打开 800M 的文件（每行一个数字）但是可能一直读硬盘不大合适（或许可以用双端队列整一个缓冲区？）
+> more 的写法比较奇怪，我的做法是保存换行符的位置，内存占用几乎没有，测试可以很正常的打开 800M 的文件（每行一个数字）
 
 - xargs & xargs -d
 
@@ -58,6 +52,6 @@ export PATH=/home/mgt/CLionProjects/unique_lab_shell/build:/usr/local/bin:/usr/b
 
 ## 其他
 
-内置命令同样支持管道和重定向，但是好像不支持后台运行。
+内置命令同样支持管道和重定向，但不支持后台运行。
 
 ls 和 more 实现的时候认为终端的大小是 `24 * 80`
